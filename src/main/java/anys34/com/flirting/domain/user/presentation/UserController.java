@@ -1,20 +1,19 @@
 package anys34.com.flirting.domain.user.presentation;
 
 import anys34.com.flirting.domain.user.domain.User;
+import anys34.com.flirting.domain.user.exception.*;
+import anys34.com.flirting.domain.user.facade.UserFacade;
 import anys34.com.flirting.domain.user.service.UserService;
 import anys34.com.flirting.domain.user.service.sha256;
-import anys34.com.flirting.domain.user.presentation.dto.LoginDto;
-import anys34.com.flirting.domain.user.presentation.dto.SignInDto;
-import anys34.com.flirting.domain.user.presentation.dto.UserInfoDto;
+import anys34.com.flirting.domain.user.presentation.dto.req.LoginDto;
+import anys34.com.flirting.domain.user.presentation.dto.req.SignInDto;
+import anys34.com.flirting.domain.user.presentation.dto.res.UserInfoDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -22,25 +21,23 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 public class UserController {
     private final UserService userService;
+    private final UserFacade userFacade;
     private final sha256 sha256;
 
-    @GetMapping("/")
-    public ResponseEntity<UserInfoDto> index(HttpServletRequest request) {
-        UserInfoDto info = getSessionUser(request);
-        if (info != null) return ResponseEntity.ok(info);
-        else return ResponseEntity.badRequest().build();
+    @GetMapping("/profile/{id}")
+    public UserInfoDto profile(@PathVariable Long id) {
+        return new UserInfoDto(userFacade.getUserById(id));
     }
 
     // 회원 가입
     @PostMapping("/signin")
     public ResponseEntity<String> signIn(@RequestBody SignInDto signInDto) throws NoSuchAlgorithmException {
-        // 예외 처리
-        if(signInDto.getUserId().isEmpty()) return ResponseEntity.badRequest().body("아이디가 비어있습니다.");
-        if(signInDto.getName().isEmpty()) return ResponseEntity.badRequest().body("이름이 비어있습니다.");
-        if(signInDto.getPassword().isEmpty()) return ResponseEntity.badRequest().body("비밀번호가 비어있습니다.");
-        if(signInDto.getUserId().length() > 25) return ResponseEntity.badRequest().body("유저 아이디가 25글자를 넘으면 안됩니다.");
-        if(signInDto.getName().length() > 10) return ResponseEntity.badRequest().body("이름이 10글자를 넘으면 안됩니다.");
-        if(userService.checkUserId(signInDto.getUserId())) return ResponseEntity.badRequest().body("같은 아이디가 있습니다.");
+        if(signInDto.getUserId().isEmpty()) throw BlankIdException.EXCEPTION;
+        if(signInDto.getName().isEmpty()) throw BlankNameException.EXCEPTION;
+        if(signInDto.getPassword().isEmpty()) throw BlankPasswordException.EXCEPTION;
+        if(signInDto.getUserId().length() > 25) throw OverFlowIdException.EXCEPTION;
+        if(signInDto.getName().length() > 10) throw OverFlowNameException.EXCEPTION;
+        if(userService.checkUserId(signInDto.getUserId())) throw SameIdException.EXCEPTION;
 
         try {
             // 비밀번호 암호화
@@ -57,37 +54,15 @@ public class UserController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpServletRequest request) {
-        // 예외 처리
-        if (loginDto.getUserId().isEmpty()) return ResponseEntity.badRequest().body("아이디가 비어있습니다.");
-        if (loginDto.getPassword().isEmpty()) return ResponseEntity.badRequest().body("비밀번호가 비어있습니다.");
+    public Long login(@RequestBody LoginDto loginDto) {
+        if (loginDto.getUserId().isEmpty()) throw BlankIdException.EXCEPTION;
+        if (loginDto.getPassword().isEmpty()) throw BlankPasswordException.EXCEPTION;
 
-        // 비밀번호 암호화
         try {
             loginDto.setPassword(sha256.encrypt(loginDto.getPassword()));
         } catch (NoSuchAlgorithmException e) {}
 
-        try {
-            // 회원 조회
-            Pair<User, Boolean> result = userService.login(loginDto);
-            if (result.getSecond()) {
-                User user = result.getFirst();
-
-                // 세션에 회원 저장
-                try {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", user.getId());
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-
-                return ResponseEntity.ok("로그인 성공");
-            }
-            if (!result.getSecond()) return ResponseEntity.badRequest().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("error");
-        }
-        throw new IllegalArgumentException();
+        return userService.login(loginDto);
     }
 
     // 로그아웃
@@ -101,28 +76,6 @@ public class UserController {
             return ResponseEntity.ok("로그아웃 성공");
         } else {
             return ResponseEntity.badRequest().build();
-        }
-    }
-
-    public UserInfoDto getSessionUser(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            Long id = (Long) session.getAttribute("user");
-            if (id != null) {
-                User user = userService.select(id);
-
-                UserInfoDto userInfo = UserInfoDto.builder()
-                        .id(user.getId())
-                        .userId(user.getUserId())
-                        .name(user.getName())
-                        .build();
-
-                return userInfo;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
         }
     }
 }

@@ -1,5 +1,6 @@
-package anys34.com.flirting.domain.user.presentation.dto;
+package anys34.com.flirting.domain.user.presentation.dto.res;
 
+import anys34.com.flirting.domain.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,9 @@ public class UserInfoDto implements Serializable {
     private String userId;
     private String name;
 
-    @Builder
-    public UserInfoDto(Long id, String userId, String name) {
-        this.id = id;
-        this.userId = userId;
-        this.name = name;
+    public UserInfoDto(User user) {
+        this.id = user .getId();
+        this.userId = user.getUserId();
+        this.name = user.getName();
     }
 }
