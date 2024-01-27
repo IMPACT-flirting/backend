@@ -15,6 +15,7 @@ public enum ErrorCode {
     BLANK_NAME(400, "Blank NAME"),
     OVERFLOW_NAME(400, "Over Flow NAME"),
     BLANK_PASSWORD(400, "Blank Password"),
+    PLACE_NOT_FOUND(400, "Place Not Found"),
     EXPIRED_JWT(401, "Expired Jwt"),
     INVALID_JWT(401, "Invalid Jwt"),
     INVALID_REFRESH_TOKEN(401, "Invalid Refresh Token"),

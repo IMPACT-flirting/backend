@@ -5,6 +5,7 @@ import anys34.com.flirting.domain.place.domain.repository.PlaceRepository;
 import anys34.com.flirting.domain.place.presentation.dto.res.ListPlaceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class ListPlaceService {
     private final PlaceRepository placeRepository;
 
+    @Transactional(readOnly = true)
     public List<ListPlaceResponse> execute() {
         return placeRepository.findAll().stream()
                 .map(ListPlaceResponse::new)

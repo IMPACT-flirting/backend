@@ -1,5 +1,6 @@
 package anys34.com.flirting.domain.place.domain;
 
+import anys34.com.flirting.domain.comment.domain.Comment;
 import anys34.com.flirting.domain.hashTag.domain.Hashtag;
 import anys34.com.flirting.domain.user.domain.User;
 import jakarta.persistence.*;
@@ -41,6 +42,9 @@ public class Place {
             inverseJoinColumns = @JoinColumn(name = "hashtag_id")
     )
     private List<Hashtag> hashtags;
+
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     @Builder
     public Place(User user, String title, String contents, String address, List<Hashtag> hashtags) {

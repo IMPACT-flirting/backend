@@ -8,6 +8,7 @@ import anys34.com.flirting.domain.place.presentation.dto.req.SavePlaceRequest;
 import anys34.com.flirting.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class SavePlaceService {
     private final HashtagRepository hashtagRepository;
     private final UserFacade userFacade;
 
+    @Transactional
     public Long execute(SavePlaceRequest savePlaceRequest) {
         List<Hashtag> hashtags = new ArrayList<>();
         for (String hashtagName : savePlaceRequest.getHashtags()) {
