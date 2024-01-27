@@ -51,4 +51,8 @@ public class Timeline {
         this.hashtags = hashtags;
         this.user = user;
     }
+
+    public void updatePlaces(List<Place> places) {
+        this.placetags = places;
+    }
 }
