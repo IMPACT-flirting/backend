@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class SaveCommentRequest {
-    private Long id;
+    private Long postId;
     private String comment;
 
     public Comment toEntity(Place place) {

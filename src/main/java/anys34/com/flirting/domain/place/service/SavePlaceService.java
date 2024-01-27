@@ -33,6 +33,6 @@ public class SavePlaceService {
             hashtags.add(existingHashtag);
         }
 
-        return placeRepository.save(savePlaceRequest.toEntity(hashtags, userFacade.getUserById(savePlaceRequest.getId()))).getId();
+        return placeRepository.save(savePlaceRequest.toEntity(hashtags, userFacade.getUserById(savePlaceRequest.getUserId()))).getId();
     }
 }

@@ -16,7 +16,7 @@ public class SaveCommentService {
 
     @Transactional
     public void execute(SaveCommentRequest saveCommentRequest) {
-        Place place = placeRepository.findById(saveCommentRequest.getId())
+        Place place = placeRepository.findById(saveCommentRequest.getPostId())
                 .orElseThrow(() -> PlaceNotFoundException.EXCEPTION);
 
         place.getComments().add(saveCommentRequest.toEntity(place));
