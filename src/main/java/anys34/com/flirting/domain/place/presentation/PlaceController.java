@@ -13,7 +13,7 @@ public class PlaceController {
     private final SavePlaceService savePlaceService;
 
     @PostMapping("/save")
-    public void save(@RequestBody SavePlaceRequest savePlaceRequest) {
-        savePlaceService.execute(savePlaceRequest);
+    public Long save(@RequestBody SavePlaceRequest savePlaceRequest) {
+        return savePlaceService.execute(savePlaceRequest);
     }
 }

@@ -19,7 +19,7 @@ public class SavePlaceService {
     private final HashtagRepository hashtagRepository;
     private final UserFacade userFacade;
 
-    public void execute(SavePlaceRequest savePlaceRequest) {
+    public Long execute(SavePlaceRequest savePlaceRequest) {
         List<Hashtag> hashtags = new ArrayList<>();
         for (String hashtagName : savePlaceRequest.getHashtags()) {
             Hashtag existingHashtag = hashtagRepository.findByName(hashtagName);
@@ -31,6 +31,6 @@ public class SavePlaceService {
             hashtags.add(existingHashtag);
         }
 
-        placeRepository.save(savePlaceRequest.toEntity(hashtags, userFacade.getUserById(savePlaceRequest.getId())));
+        return placeRepository.save(savePlaceRequest.toEntity(hashtags, userFacade.getUserById(savePlaceRequest.getId()))).getId();
     }
 }
