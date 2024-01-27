@@ -2,9 +2,11 @@ package anys34.com.flirting.domain.timeline.presentation;
 
 import anys34.com.flirting.domain.timeline.presentation.dto.req.SaveSpotRequest;
 import anys34.com.flirting.domain.timeline.presentation.dto.req.SaveTimelineRequest;
+import anys34.com.flirting.domain.timeline.presentation.dto.res.TimelineInfoResponse;
 import anys34.com.flirting.domain.timeline.presentation.dto.res.TimelineListResponse;
 import anys34.com.flirting.domain.timeline.service.SaveSpotService;
 import anys34.com.flirting.domain.timeline.service.SaveTimelineService;
+import anys34.com.flirting.domain.timeline.service.TimelineInfoService;
 import anys34.com.flirting.domain.timeline.service.TimelineListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class TimelineController {
     private final SaveTimelineService saveTimelineService;
     private final TimelineListService timelineListService;
     private final SaveSpotService saveSpotService;
+    private final TimelineInfoService timelineInfoService;
 
     @PostMapping("/save")
     public void save(@RequestBody SaveTimelineRequest saveTimelineRequest) {
@@ -32,5 +35,10 @@ public class TimelineController {
     @PostMapping("/spot")
     public void spot(@RequestBody SaveSpotRequest saveSpotRequest) {
         saveSpotService.execute(saveSpotRequest);
+    }
+
+    @GetMapping("/{id}")
+    public TimelineInfoResponse info(@PathVariable Long id) {
+        return timelineInfoService.execute(id);
     }
 }
