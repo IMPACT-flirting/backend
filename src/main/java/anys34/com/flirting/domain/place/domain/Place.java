@@ -3,6 +3,7 @@ package anys34.com.flirting.domain.place.domain;
 import anys34.com.flirting.domain.comment.domain.Comment;
 import anys34.com.flirting.domain.hashTag.domain.Hashtag;
 import anys34.com.flirting.domain.user.domain.User;
+import anys34.com.flirting.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,22 +14,19 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Place {
+public class Place extends BaseTimeEntity {
     @Id
     @Column(name = "place_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String title;
 
-    @Column
     private String contents;
 
-    @Column
+    @Column(name = "img_url")
     private String imgUrl;
 
-    @Column
     private String address;
 
     @ManyToOne
