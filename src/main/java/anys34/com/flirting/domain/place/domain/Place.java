@@ -45,7 +45,7 @@ public class Place extends BaseTimeEntity {
     private List<Comment> comments;
 
     @Builder
-    public Place(User user, String title, String contents, String address, List<Hashtag> hashtags) {
+    public Place(User user, String title, String contents, String address,  List<Hashtag> hashtags) {
         this.user = user;
         this.title = title;
         this.contents = contents;
