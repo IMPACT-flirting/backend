@@ -5,6 +5,7 @@ import anys34.com.flirting.domain.hashTag.domain.Hashtag;
 import anys34.com.flirting.domain.hashTag.domain.repository.HashtagRepository;
 import anys34.com.flirting.domain.place.domain.repository.PlaceRepository;
 import anys34.com.flirting.domain.place.presentation.dto.req.SavePlaceRequest;
+import anys34.com.flirting.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class SavePlaceService {
     private final PlaceRepository placeRepository;
     private final HashtagRepository hashtagRepository;
+    private final UserFacade userFacade;
 
     public void execute(SavePlaceRequest savePlaceRequest) {
         List<Hashtag> hashtags = new ArrayList<>();
@@ -29,6 +31,6 @@ public class SavePlaceService {
             hashtags.add(existingHashtag);
         }
 
-        placeRepository.save(savePlaceRequest.toEntity(hashtags));
+        placeRepository.save(savePlaceRequest.toEntity(hashtags, userFacade.getUserById(savePlaceRequest.getId())));
     }
 }

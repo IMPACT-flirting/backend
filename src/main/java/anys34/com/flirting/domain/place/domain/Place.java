@@ -1,6 +1,7 @@
 package anys34.com.flirting.domain.place.domain;
 
 import anys34.com.flirting.domain.hashTag.domain.Hashtag;
+import anys34.com.flirting.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,10 @@ public class Place {
     @Column
     private String address;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @ManyToMany
     @JoinTable(
             name = "place_hashtag",
@@ -38,7 +43,8 @@ public class Place {
     private List<Hashtag> hashtags;
 
     @Builder
-    public Place(String title, String contents, String address, List<Hashtag> hashtags) {
+    public Place(User user, String title, String contents, String address, List<Hashtag> hashtags) {
+        this.user = user;
         this.title = title;
         this.contents = contents;
         this.address = address;
