@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class SavePlaceRequest {
-    private Long id;
+    private Long userId;
     private String title;
     private String contents;
     private String address;
