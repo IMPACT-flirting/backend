@@ -1,19 +1,28 @@
 package anys34.com.flirting.domain.timeline.presentation;
 
 import anys34.com.flirting.domain.timeline.presentation.dto.req.SaveTimelineRequest;
+import anys34.com.flirting.domain.timeline.presentation.dto.res.TimelineListResponse;
 import anys34.com.flirting.domain.timeline.service.SaveTimelineService;
+import anys34.com.flirting.domain.timeline.service.TimelineListService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
+@RequestMapping("/timeline")
 @RestController
 public class TimelineController {
     private final SaveTimelineService saveTimelineService;
+    private final TimelineListService timelineListService;
 
-    @PostMapping("/timeline/save")
+    @PostMapping("/save")
     public void save(@RequestBody SaveTimelineRequest saveTimelineRequest) {
         saveTimelineService.execute(saveTimelineRequest);
+    }
+
+    @GetMapping("/list/{id}")
+    public List<TimelineListResponse>list(@PathVariable Long id) {
+        return timelineListService.execute(id);
     }
 }
