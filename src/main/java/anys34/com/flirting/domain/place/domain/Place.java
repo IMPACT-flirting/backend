@@ -2,6 +2,7 @@ package anys34.com.flirting.domain.place.domain;
 
 import anys34.com.flirting.domain.hashTag.domain.Hashtag;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,4 +36,12 @@ public class Place {
             inverseJoinColumns = @JoinColumn(name = "hashtag_id")
     )
     private List<Hashtag> hashtags;
+
+    @Builder
+    public Place(String title, String contents, String address, List<Hashtag> hashtags) {
+        this.title = title;
+        this.contents = contents;
+        this.address = address;
+        this.hashtags = hashtags;
+    }
 }
