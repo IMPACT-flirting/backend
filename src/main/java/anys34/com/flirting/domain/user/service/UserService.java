@@ -1,9 +1,9 @@
-package anys34.com.flirting.service;
+package anys34.com.flirting.domain.user.service;
 
-import anys34.com.flirting.domain.user.User;
-import anys34.com.flirting.domain.user.UserRepository;
-import anys34.com.flirting.web.dto.LoginDto;
-import anys34.com.flirting.web.dto.SignInDto;
+import anys34.com.flirting.domain.user.domain.User;
+import anys34.com.flirting.domain.user.domain.repository.UserRepository;
+import anys34.com.flirting.domain.user.presentation.dto.LoginDto;
+import anys34.com.flirting.domain.user.presentation.dto.SignInDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package anys34.com.flirting.web.dto;
+package anys34.com.flirting.domain.user.presentation.dto;
 
-import anys34.com.flirting.domain.user.User;
+import anys34.com.flirting.domain.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

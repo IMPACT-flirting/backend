@@ -1,5 +1,6 @@
-package anys34.com.flirting.domain.user;
+package anys34.com.flirting.domain.user.domain.repository;
 
+import anys34.com.flirting.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

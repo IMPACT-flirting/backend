@@ -1,11 +1,11 @@
-package anys34.com.flirting.web;
+package anys34.com.flirting.domain.user.presentation;
 
-import anys34.com.flirting.domain.user.User;
-import anys34.com.flirting.service.UserService;
-import anys34.com.flirting.service.sha256;
-import anys34.com.flirting.web.dto.LoginDto;
-import anys34.com.flirting.web.dto.SignInDto;
-import anys34.com.flirting.web.dto.UserInfoDto;
+import anys34.com.flirting.domain.user.domain.User;
+import anys34.com.flirting.domain.user.service.UserService;
+import anys34.com.flirting.domain.user.service.sha256;
+import anys34.com.flirting.domain.user.presentation.dto.LoginDto;
+import anys34.com.flirting.domain.user.presentation.dto.SignInDto;
+import anys34.com.flirting.domain.user.presentation.dto.UserInfoDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 
 @RequiredArgsConstructor
 @RestController
-public class UserApiController {
+public class UserController {
     private final UserService userService;
     private final sha256 sha256;
 
@@ -115,9 +115,6 @@ public class UserApiController {
                         .id(user.getId())
                         .userId(user.getUserId())
                         .name(user.getName())
-                        .education(user.getEducation())
-                        .field(user.getField())
-                        .survey(user.getSurvey())
                         .build();
 
                 return userInfo;

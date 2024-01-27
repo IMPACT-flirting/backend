@@ -1,4 +1,4 @@
-package anys34.com.flirting.service;
+package anys34.com.flirting.domain.user.service;
 
 import org.springframework.stereotype.Service;
 

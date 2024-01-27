@@ -1,4 +1,4 @@
-package anys34.com.flirting.domain.user;
+package anys34.com.flirting.domain.user.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;
