@@ -25,28 +25,10 @@ public class User { // user 테이블 생성
     @Column(nullable = false)
     private String password;
 
-    @Column
-    private int education;
-
-    @Column
-    private float field;
-
-    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private Boolean survey = false;
-
     @Builder
     public User(String userId, String name, String password) {
         this.userId = userId;
         this.name = name;
         this.password = password;
-    }
-
-    public void update(int education, float field) {
-        this.education = education;
-        this.field = field;
-    }
-
-    public void updateSurvey(boolean survey) {
-        this.survey = survey;
     }
 }
