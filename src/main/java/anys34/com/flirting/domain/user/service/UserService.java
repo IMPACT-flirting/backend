@@ -27,12 +27,6 @@ public class UserService {
     }
 
     @Transactional
-    public User select(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("유저가 없습니다."));
-    }
-
-    @Transactional
     public Boolean checkUserId(String userId) {
         return userRepository.findByUserId(userId) != null;
     }
