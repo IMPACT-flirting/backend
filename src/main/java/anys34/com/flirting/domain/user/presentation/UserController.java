@@ -27,7 +27,7 @@ public class UserController {
 
     // 회원 가입
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestBody SignInDto signInDto) throws NoSuchAlgorithmException {
+    public void signIn(@RequestBody SignInDto signInDto) {
         if(signInDto.getUserId().isEmpty()) throw BlankIdException.EXCEPTION;
         if(signInDto.getName().isEmpty()) throw BlankNameException.EXCEPTION;
         if(signInDto.getPassword().isEmpty()) throw BlankPasswordException.EXCEPTION;
@@ -36,19 +36,12 @@ public class UserController {
         if(userService.checkUserId(signInDto.getUserId())) throw SameIdException.EXCEPTION;
 
         try {
-            // 비밀번호 암호화
             signInDto.setPassword(sha256.encrypt(signInDto.getPassword()));
+        } catch (NoSuchAlgorithmException e) {}
 
-            // 회원 생성
-            userService.signIn(signInDto);
-            return ResponseEntity.ok("회원가입 성공");
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-            return ResponseEntity.badRequest().build();
-        }
+        userService.signIn(signInDto);
     }
 
-    // 로그인
     @PostMapping("/login")
     public Long login(@RequestBody LoginDto loginDto) {
         if (loginDto.getUserId().isEmpty()) throw BlankIdException.EXCEPTION;
