@@ -33,7 +33,7 @@ public class PlaceController {
 
     @PostMapping("/picture")
     public void uploadImg(@RequestParam("id") Long id,
-                            @RequestParam("thumbnail") MultipartFile file) {
+                            @RequestParam("file") MultipartFile file) {
         uploadPictureService.execute(id, file);
     }
 

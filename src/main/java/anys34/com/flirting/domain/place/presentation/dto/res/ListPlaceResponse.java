@@ -10,10 +10,12 @@ public class ListPlaceResponse {
     private Long id;
     private String title;
     private String contents;
+    private String img;
 
     public ListPlaceResponse(Place place) {
         this.id = place.getId();
         this.title = place.getTitle();
         this.contents = place.getContents();
+        this.img = place.getImgUrl();
     }
 }

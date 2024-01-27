@@ -6,6 +6,7 @@ import anys34.com.flirting.domain.place.exception.PlaceNotFoundException;
 import anys34.com.flirting.infrastructure.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
@@ -14,6 +15,7 @@ public class UploadPictureService {
     private final PlaceRepository placeRepository;
     private final S3Service s3Service;
 
+    @Transactional
     public void execute(Long id, MultipartFile file) {
         Place place = placeRepository.findById(id)
                 .orElseThrow(() -> PlaceNotFoundException.EXCEPTION);

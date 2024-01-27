@@ -1,6 +1,5 @@
 package anys34.com.flirting.domain.place.service;
 
-import anys34.com.flirting.domain.comment.domain.Comment;
 import anys34.com.flirting.domain.place.domain.repository.PlaceRepository;
 import anys34.com.flirting.domain.place.exception.PlaceNotFoundException;
 import anys34.com.flirting.domain.place.presentation.dto.res.ListCommentResponse;
