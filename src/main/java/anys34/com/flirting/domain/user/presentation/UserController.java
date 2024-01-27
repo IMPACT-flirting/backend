@@ -8,7 +8,6 @@ import anys34.com.flirting.domain.user.presentation.dto.res.UserInfoDto;
 import anys34.com.flirting.domain.user.service.UserService;
 import anys34.com.flirting.domain.user.service.sha256;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;

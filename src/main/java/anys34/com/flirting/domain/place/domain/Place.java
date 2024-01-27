@@ -26,7 +26,7 @@ public class Place {
     private String contents;
 
     @Column
-    private String picUrl;
+    private String imgUrl;
 
     @Column
     private String address;
@@ -53,5 +53,9 @@ public class Place {
         this.contents = contents;
         this.address = address;
         this.hashtags = hashtags;
+    }
+
+    public void uploadImg(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
