@@ -64,18 +64,4 @@ public class UserController {
 
         return userService.login(loginDto);
     }
-
-    // 로그아웃
-    @GetMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        // 세션 조회
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            // 세션 삭제
-            session.invalidate();
-            return ResponseEntity.ok("로그아웃 성공");
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
 }
