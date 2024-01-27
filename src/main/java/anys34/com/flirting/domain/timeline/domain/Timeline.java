@@ -5,6 +5,7 @@ import anys34.com.flirting.domain.place.domain.Place;
 import anys34.com.flirting.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,13 +20,13 @@ public class Timeline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
+    private String date;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "place_id")
-    private Place place;
 
     @ManyToMany
     @JoinTable(
@@ -42,4 +43,12 @@ public class Timeline {
             inverseJoinColumns = @JoinColumn(name = "place_id")
     )
     private List<Place> placetags;
+
+    @Builder
+    public Timeline(String title, String date, List<Hashtag> hashtags, User user) {
+        this.title = title;
+        this.date = date;
+        this.hashtags = hashtags;
+        this.user = user;
+    }
 }

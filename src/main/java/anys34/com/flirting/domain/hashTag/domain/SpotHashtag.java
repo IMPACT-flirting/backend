@@ -4,6 +4,8 @@ import anys34.com.flirting.domain.place.domain.Place;
 import anys34.com.flirting.domain.timeline.domain.Timeline;
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "spot_hashtag")
 public class SpotHashtag {
