@@ -5,6 +5,7 @@ import anys34.com.flirting.domain.place.presentation.dto.req.SaveCommentRequest;
 import anys34.com.flirting.domain.place.presentation.dto.req.SavePlaceRequest;
 import anys34.com.flirting.domain.place.presentation.dto.res.ListCommentResponse;
 import anys34.com.flirting.domain.place.presentation.dto.res.ListPlaceResponse;
+import anys34.com.flirting.domain.place.presentation.dto.res.PlaceInfoResponse;
 import anys34.com.flirting.domain.place.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,16 @@ public class PlaceController {
     private final SaveCommentService saveCommentService;
     private final ListCommentService listCommentService;
     private final UploadPictureService uploadPictureService;
+    private final PlaceInfoService placeInfoService;
 
     @GetMapping("/list")
     public List<ListPlaceResponse> list() {
         return listPlaceService.execute();
+    }
+
+    @GetMapping("/list/{id}")
+    public PlaceInfoResponse info(@PathVariable Long id) {
+        return placeInfoService.execute(id);
     }
 
     @PostMapping("/save")
